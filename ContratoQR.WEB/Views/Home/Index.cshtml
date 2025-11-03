@@ -1,4 +1,4 @@
-﻿@model FileExcelModel
+﻿@model FileExcelViewModel
 @{
     ViewData["Title"] = "Contrato QR - Prestadores de Servicios Depto. Salud - Quilicura";
 }
@@ -25,7 +25,7 @@
         </div>
 
 
-        @if (Model.CodigoQR != null && Model.CodigoQR != "")
+        @if (Model != null && Model.CodigoQR != null && Model.CodigoQR != "")
         {
             <div>
                 <img alt="qrgenerator" class="img-fluid" src="@string.Format("data:image/png;base64,{0}", @Model.CodigoQR)" height="300" width="300" />
@@ -49,7 +49,7 @@
         }
     </div>
 </div>
-@if (Model.IsError != null && Model.IsError == "NO")
+@if (Model != null && Model.IsError != null && Model.IsError == "NO")
 {
     <script>
         Swal.fire({
@@ -59,7 +59,7 @@
         });
     </script>
 }
-else if (Model.IsError != null && Model.IsError == "SI")
+else if (Model != null && Model.IsError != null && Model.IsError == "SI")
 {
     <script>
         Swal.fire({

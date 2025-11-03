@@ -1,0 +1,67 @@
+﻿@using ContratoQR.Entity
+@using GridMvc
+@model PersonalViewModel
+
+<div class="row">
+    <div class="col s12 m6">
+        <div class="card">
+            <div class="card-content">
+                <h4>Consultar Funcionario</h4>
+                <div class="row">
+                    @using (Html.BeginForm("GetFuncionario", "Funcionario", FormMethod.Post))
+                    {
+                        <div class="row">
+                            <div class="input-field col s3">
+                                @* <input id="txtRut" name="txtRut" type="text" class="validate"> *@
+                                @Html.TextBoxFor(m => m.RutFuncionario)
+                                <label for="txtRut">Rut</label>
+                            </div>
+                            <div class="input-field col s3">
+                                @* <input id="txtNombre" name="txtNombre" type="text" class="validate"> *@
+                                @Html.TextBoxFor(m => m.NombreFuncionario)
+                                <label for="txtNombre">Nombre Funcionario</label>
+                            </div>
+                            <div class="col s2 left-align">
+                                <button class="btn waves-effect waves-light" type="submit">
+                                    Buscar
+                                    <i class="material-icons right">search</i>
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s2 left-align">
+        <a class='btn waves-effect waves-light' t href='Funcionario/Create'>Nuevo <i class="material-icons right">add</i></a>
+@*         <button class="btn waves-effect waves-light" type="button" asp-action="Create" asp-controller="Funcionario">
+            Nuevo
+            <i class="material-icons right">add</i>
+        </button> *@
+    </div>
+</div>
+
+@await Html.Grid(Model.ListaPersonal).Columns(c =>
+{
+    c.Add(model => model.RutFuncionario).Titled("Rut").SetWidth(150);
+    c.Add(model => model.NombreFuncionario).Titled("Nombre").SetWidth(150);
+    c.Add
+    (
+        model => model.UrlContrato
+    )
+    .Titled("Url Contrato")
+    .SetWidth(150)
+    .Encoded(false)
+    .Sanitized(false)
+    .RenderValueAs(o => $"<b><a class='modal_link' target='_blank' href='{o.UrlContrato}'>Ver Contrato</a></b>");
+    c.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(o => $"<b><a class='modal_link' href='Funcionario/Edit?rutPersonal={o.RutFuncionario}'>Editar</a></b>");
+}).WithPaging(20).EmptyText("No se encontraron registros").RenderAsync()
+

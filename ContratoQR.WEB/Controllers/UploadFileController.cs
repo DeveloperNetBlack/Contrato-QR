@@ -7,7 +7,7 @@ namespace ContratoQR.WEB.Controllers
     {
         public IActionResult Index()
         {
-            FileExcelModel fileExcelModel = new FileExcelModel();
+            FileExcelViewModel fileExcelModel = new FileExcelViewModel();
 
             fileExcelModel.IsError = "";
 
@@ -18,7 +18,7 @@ namespace ContratoQR.WEB.Controllers
         public async Task<IActionResult> FileUpload(IFormFile file)
         {
 
-            FileExcelModel fileExcelModel = new FileExcelModel();
+            FileExcelViewModel fileExcelModel = new FileExcelViewModel();
             ViewBag.Inicio = "NO";
 
             try

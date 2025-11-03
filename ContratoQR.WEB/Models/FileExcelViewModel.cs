@@ -2,7 +2,7 @@
 
 namespace ContratoQR.WEB.Models
 {
-    public class FileExcelModel : FileExcel
+    public class FileExcelViewModel : FileExcel
     {
         public List<FileExcel> Funcionarios { get; set; } = new List<FileExcel>();
         public FileExcel? Funcionario { get; set; }

@@ -7,6 +7,8 @@
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet " href="~/css/gridmvc.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" integrity="sha512-34s5cpvaNG3BknEWSuOncX28vz97bRI59UnVtEEpFX536A7BtZSJHsDyFoCl8S7Dt2TPzcrCEoHBGeM4SUBDBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/webContratoQR.styles.css" asp-append-version="true" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -21,34 +23,14 @@
     <header>
         <nav class="indigo lighten-2">
             <div class="nav-wrapper">
-                <a href="Home" class="brand-logo center">Prestadores de Servicios Depto. Salud - Quilicura</a>
+                <a <a asp-controller="Home" asp-action="Index" class="brand-logo center">Prestadores de Servicios Depto. Salud - Quilicura</a>
                 <ul id="nav-mobile" class="left hide-on-med-and-down">
-                    <li><a href="UploadFile"><i class="material-icons left">cloud</i>Subir Excel</a></li>
+                    <li><a asp-controller="UploadFile" asp-action="Index"><i class="material-icons left">backup</i>Subir Excel</a></li>
+                    <li><a asp-controller="Funcionario" asp-action="Index"><i class="material-icons left">people</i>Funcionario</a></li>
                 </ul>
-                <a href="Home" class="brand-logo right"><img src="img/QuilicuraSalud.png" alt="" style="height: 8%; width: 8%; float: right;" /></a>
+                <a <a asp-controller="Home" asp-action="Index" class="brand-logo right"><img src="img/QuilicuraSalud.png" alt="" style="height: 8%; width: 8%; float: right;" /></a>
             </div>
         </nav>
-        @*         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="background-color: #e3f2fd;">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Depto. Salud - Quilicura</a>
-
-                <div class="collapse navbar-collapse" id="navbarText">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="Home">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="UploadFile">Subir Excel</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-        </nav> *@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -64,6 +46,8 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/gridmvc.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -1,0 +1,43 @@
+﻿@using ContratoQR.Entity
+@using GridMvc
+@model PersonalViewModel
+
+<div class="row">
+    <div class="col s12 m6">
+        <div class="card">
+            <div class="card-content">
+                <h4>Consultar Funcionario</h4>
+                <div class="row">
+                    @using (Html.BeginForm("Edit", "Funcionario", FormMethod.Post))
+                    {
+                        <div class="row">
+                            <div class="input-field col s3">
+                                @Html.TextBoxFor(m => m.RutFuncionario)
+                                <label for="txtRut">Rut</label>
+                            </div>
+                            <div class="input-field col s3">
+                                @Html.TextBoxFor(m => m.NombreFuncionario)
+                                <label for="txtNombre">Nombre Funcionario</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                @Html.TextBoxFor(m => m.UrlContrato)
+                                <label for="txtUrlContrao">Url Contrato</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s2 left-align">
+                                <button class="btn waves-effect waves-light" type="submit">
+                                    Grabar
+                                    <i class="material-icons right">save</i>
+                                </button>
+                            </div>
+                        </div>
+                        @Html.HiddenFor(m => m.IdPersonalQR)
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

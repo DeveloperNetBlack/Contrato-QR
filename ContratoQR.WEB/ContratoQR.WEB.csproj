@@ -9,10 +9,12 @@
   <ItemGroup>
     <PackageReference Include="ExcelDataReader" Version="3.8.0" />
     <PackageReference Include="ExcelDataReader.DataSet" Version="3.8.0" />
+    <PackageReference Include="GridMvcCore" Version="8.2.0" />
     <PackageReference Include="QRCoder" Version="1.7.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ContratoQR.BLL\ContratoQR.BLL.csproj" />
     <ProjectReference Include="..\ContratoQR.Entity\ContratoQR.Entity.csproj" />
   </ItemGroup>
 

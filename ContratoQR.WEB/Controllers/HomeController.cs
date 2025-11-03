@@ -18,7 +18,7 @@ namespace ContratoQR.WEB.Controllers
 
         public ActionResult Index()
         {
-            FileExcelModel fileExcelModel = new FileExcelModel();
+            FileExcelViewModel fileExcelModel = new FileExcelViewModel();
             ViewData["qr"] = "";
             ViewBag.QR = "";
             fileExcelModel.CodigoQR = "";
@@ -33,7 +33,7 @@ namespace ContratoQR.WEB.Controllers
         {
             List<FileExcel> funcionarios = new List<FileExcel>();
             string? filePath = ""; // _configuration.GetValue<string>("NombreExcel").ToString();
-            FileExcelModel fileExcelModel = new FileExcelModel();
+            FileExcelViewModel fileExcelModel = new FileExcelViewModel();
 
             if (Directory.Exists(Path.Combine("wwwroot", "Uploads")) && Directory.GetFiles(Path.Combine("wwwroot", "Uploads")).Length > 0)
             {
