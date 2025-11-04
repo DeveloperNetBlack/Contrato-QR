@@ -42,18 +42,14 @@ namespace ContratoQR.WEB.Controllers
                     {
                         await file.CopyToAsync(stream);
                     }
-
-                    fileExcelModel.IsError = "NO";
-                    fileExcelModel.Mensaje = "Archivo subido exitosamente.";
                 }
             }
             catch (Exception ex)
             {
-                fileExcelModel.Mensaje = ex.Message;
-                fileExcelModel.IsError = "SI";
+                return PartialView("Mensajeria", new MensajeriaViewModel { IsError = true, Mensaje = ex.Message, Url = "/Home" });
             }
 
-            return View("Index", fileExcelModel);
+            return PartialView("Mensajeria", new MensajeriaViewModel { IsError = false, Mensaje = "Archivo subido exitosamente", Url = "/Home" });
         }
     }
 }

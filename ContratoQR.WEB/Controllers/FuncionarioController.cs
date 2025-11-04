@@ -20,7 +20,14 @@ namespace ContratoQR.WEB.Controllers
             PersonalViewModel personalViewModel = new();
             BLL.PersonalQR personalQR = new();
 
-            personalViewModel.ListaPersonal = personalQR.Listar(string.Empty, string.Empty, _configuration);
+            try
+            {
+                personalViewModel.ListaPersonal = personalQR.Listar(string.Empty, string.Empty, _configuration);
+            }
+            catch (Exception ex)
+            {
+                return PartialView("Mensajeria", new MensajeriaViewModel { IsError = true, Mensaje = ex.Message, Url = "/Funcionario" });
+            }
 
             return View(personalViewModel);
         }
@@ -31,10 +38,17 @@ namespace ContratoQR.WEB.Controllers
             PersonalViewModel personalViewModel = new();
             BLL.PersonalQR personalQR = new();
 
-            rutFuncionario = rutFuncionario ?? string.Empty;
-            nombreFuncionario = nombreFuncionario ?? string.Empty;
+            try
+            {
+                rutFuncionario = rutFuncionario ?? string.Empty;
+                nombreFuncionario = nombreFuncionario ?? string.Empty;
 
-            personalViewModel.ListaPersonal = personalQR.Listar(rutFuncionario, nombreFuncionario, _configuration);
+                personalViewModel.ListaPersonal = personalQR.Listar(rutFuncionario, nombreFuncionario, _configuration);
+            }
+            catch (Exception ex)
+            {
+                return PartialView("Mensajeria", new MensajeriaViewModel { IsError = true, Mensaje = ex.Message, Url = "/Funcionario" });
+            }
 
             return View("Index", personalViewModel);
         }
@@ -54,16 +68,23 @@ namespace ContratoQR.WEB.Controllers
             PersonalViewModel personalViewModel = new();
             PersonalQREntity personalQREntity = new();
 
-            personalQREntity.RutFuncionario = formulario["RutFuncionario"].ToString().ToUpper();
-            personalQREntity.NombreFuncionario = formulario["NombreFuncionario"].ToString().ToUpper();
-            personalQREntity.UrlContrato = formulario["UrlContrato"];
-            personalQREntity.IndEstado = 1;
+            try
+            {
+                personalQREntity.RutFuncionario = formulario["RutFuncionario"].ToString().ToUpper();
+                personalQREntity.NombreFuncionario = formulario["NombreFuncionario"].ToString().ToUpper();
+                personalQREntity.UrlContrato = formulario["UrlContrato"];
+                personalQREntity.IndEstado = 1;
 
-            personalQR.Insertar(personalQREntity, _configuration);
+                personalQR.Insertar(personalQREntity, _configuration);
 
-            personalViewModel.ListaPersonal = personalQR.Listar(string.Empty, string.Empty, _configuration);
+                personalViewModel.ListaPersonal = personalQR.Listar(string.Empty, string.Empty, _configuration);
+            }
+            catch (Exception ex)
+            {
+                return PartialView("Mensajeria", new MensajeriaViewModel { IsError = true, Mensaje = ex.Message, Url = "/Funcionario" });
+            }
 
-            return View("Index", personalViewModel);
+            return PartialView("Mensajeria", new MensajeriaViewModel { IsError = false, Mensaje = "Registro creado!!!", Url = "/Funcionario" });
         }
 
         public IActionResult Edit(string rutPersonal)
@@ -71,19 +92,27 @@ namespace ContratoQR.WEB.Controllers
             PersonalViewModel personalViewModel = new();
             BLL.PersonalQR personalQR = new();
 
-            personalViewModel.ListaPersonal = personalQR.Listar(rutPersonal, string.Empty, _configuration);
-
-            if(personalViewModel.ListaPersonal.Count == 0)
+            try
             {
-                return RedirectToAction("Index");
+                personalViewModel.ListaPersonal = personalQR.Listar(rutPersonal, string.Empty, _configuration);
+
+                if (personalViewModel.ListaPersonal.Count == 0)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                personalViewModel.RutFuncionario = personalViewModel.ListaPersonal[0].RutFuncionario;
+                personalViewModel.NombreFuncionario = personalViewModel.ListaPersonal[0].NombreFuncionario;
+                personalViewModel.UrlContrato = personalViewModel.ListaPersonal[0].UrlContrato;
+                personalViewModel.IdPersonalQR = personalViewModel.ListaPersonal[0].IdPersonalQR;
+            }
+            catch (Exception ex)
+            {
+                return PartialView("Mensajeria", new MensajeriaViewModel { IsError = true, Mensaje = ex.Message, Url = "/Funcionario" });
             }
 
-            personalViewModel.RutFuncionario = personalViewModel.ListaPersonal[0].RutFuncionario;
-            personalViewModel.NombreFuncionario = personalViewModel.ListaPersonal[0].NombreFuncionario;
-            personalViewModel.UrlContrato = personalViewModel.ListaPersonal[0].UrlContrato;
-            personalViewModel.IdPersonalQR = personalViewModel.ListaPersonal[0].IdPersonalQR;
-
             return View(personalViewModel);
+
         }
 
         [HttpPost]
@@ -93,17 +122,25 @@ namespace ContratoQR.WEB.Controllers
             PersonalQREntity personalQREntity = new();
             PersonalViewModel personalViewModel = new();
 
-            personalQREntity.IdPersonalQR = Convert.ToInt32(formulario["IdPersonalQR"]);
-            personalQREntity.RutFuncionario = formulario["RutFuncionario"].ToString().ToUpper();
-            personalQREntity.NombreFuncionario = formulario["NombreFuncionario"].ToString().ToUpper();
-            personalQREntity.UrlContrato = formulario["UrlContrato"];
-            personalQREntity.IndEstado = 1;
+            try
+            {
+                personalQREntity.IdPersonalQR = Convert.ToInt32(formulario["IdPersonalQR"]);
+                personalQREntity.RutFuncionario = formulario["RutFuncionario"].ToString().ToUpper();
+                personalQREntity.NombreFuncionario = formulario["NombreFuncionario"].ToString().ToUpper();
+                personalQREntity.UrlContrato = formulario["UrlContrato"];
+                personalQREntity.IndEstado = 1;
 
-            personalViewModel.ListaPersonal = personalQR.Listar(string.Empty, string.Empty, _configuration);
+                personalViewModel.ListaPersonal = personalQR.Listar(string.Empty, string.Empty, _configuration);
 
-            personalQR.Actualizar(personalQREntity, _configuration);
+                personalQR.Actualizar(personalQREntity, _configuration);
+            }
+            catch (Exception ex)
+            {
+                return PartialView("Mensajeria", new MensajeriaViewModel { IsError = true, Mensaje = ex.Message, Url = "/Funcionario" });
+            }
 
-            return View("Index", personalViewModel);
+            return PartialView("Mensajeria", new MensajeriaViewModel { IsError = false, Mensaje = "Funcionario actualizado!!!", Url = "/Funcionario" });
+
         }
     }
 }
