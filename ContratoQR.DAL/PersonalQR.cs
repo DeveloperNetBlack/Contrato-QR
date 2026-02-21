@@ -16,9 +16,9 @@ namespace ContratoQR.DAL
 
             parameters.NameProcedure = "SP_INS_CONTRATOQR";
 
-            parameters.addParameters("@PI_RUT_FUNCIONARIO", TypeData.DataType.Varchar, 12, ParameterDirection.Input, personalQR.RutFuncionario);
-            parameters.addParameters("@PI_NOMBRE_FUNCIONARIO", TypeData.DataType.Varchar, 150, ParameterDirection.Input, personalQR.NombreFuncionario);
-            parameters.addParameters("@PI_URL_CONTRATO", TypeData.DataType.Varchar, 1000, ParameterDirection.Input, personalQR.UrlContrato);
+            parameters.addParameters("@PI_RUT_FUNCIONARIO", TypeData.DataType.Varchar, 12, ParameterDirection.Input, personalQR.RutFuncionario!);
+            parameters.addParameters("@PI_NOMBRE_FUNCIONARIO", TypeData.DataType.Varchar, 150, ParameterDirection.Input, personalQR.NombreFuncionario!);
+            parameters.addParameters("@PI_URL_CONTRATO", TypeData.DataType.Varchar, 1000, ParameterDirection.Input, personalQR.UrlContrato!);
             parameters.addParameters("@PI_IND_ESTADO", TypeData.DataType.Int, 0, ParameterDirection.Input, personalQR.IndEstado);
 
             conn.ExecuteSQL(parameters);
@@ -34,9 +34,9 @@ namespace ContratoQR.DAL
             parameters.NameProcedure = "SP_UPD_CONTRATOQR";
 
             parameters.addParameters("@PI_ID_CONTRATOQR", TypeData.DataType.Int, 0, ParameterDirection.Input, personalQR.IdPersonalQR);
-            parameters.addParameters("@PI_RUT_FUNCIONARIO", TypeData.DataType.Varchar, 12, ParameterDirection.Input, personalQR.RutFuncionario);
-            parameters.addParameters("@PI_NOMBRE_FUNCIONARIO", TypeData.DataType.Varchar, 150, ParameterDirection.Input, personalQR.NombreFuncionario);
-            parameters.addParameters("@PI_URL_CONTRATO", TypeData.DataType.Varchar, 1000, ParameterDirection.Input, personalQR.UrlContrato);
+            parameters.addParameters("@PI_RUT_FUNCIONARIO", TypeData.DataType.Varchar, 12, ParameterDirection.Input, personalQR.RutFuncionario!);
+            parameters.addParameters("@PI_NOMBRE_FUNCIONARIO", TypeData.DataType.Varchar, 150, ParameterDirection.Input, personalQR.NombreFuncionario!);
+            parameters.addParameters("@PI_URL_CONTRATO", TypeData.DataType.Varchar, 1000, ParameterDirection.Input, personalQR.UrlContrato!);
             parameters.addParameters("@PI_IND_ESTADO", TypeData.DataType.Int, 0, ParameterDirection.Input, personalQR.IndEstado);
 
             conn.ExecuteSQL(parameters);

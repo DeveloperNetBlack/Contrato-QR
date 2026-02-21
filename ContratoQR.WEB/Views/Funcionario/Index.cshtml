@@ -3,28 +3,25 @@
 @model PersonalViewModel
 
 <div class="row">
-    <div class="col s12 m6">
-        <div class="card">
+    <div class="col-md-12">
+        <div class="card border-light mb-3">
             <div class="card-content">
-                <h4>Consultar Funcionario</h4>
-                <div class="row">
+                <h4 class="card-title">Consultar Funcionario</h4>
+                <div class="row" style="margin-top: 2rem; margin-bottom: 3rem;">
                     @using (Html.BeginForm("GetFuncionario", "Funcionario", FormMethod.Post))
                     {
                         <div class="row">
-                            <div class="input-field col s3">
-                                @* <input id="txtRut" name="txtRut" type="text" class="validate"> *@
-                                @Html.TextBoxFor(m => m.RutFuncionario)
+                            <div class="form-group col-md-3">
                                 <label for="txtRut">Rut</label>
+                                @Html.TextBoxFor(m => m.RutFuncionario, new { @class = "form-control" })
                             </div>
-                            <div class="input-field col s3">
-                                @* <input id="txtNombre" name="txtNombre" type="text" class="validate"> *@
-                                @Html.TextBoxFor(m => m.NombreFuncionario)
+                            <div class="form-group col-md-3">
                                 <label for="txtNombre">Nombre Funcionario</label>
+                                @Html.TextBoxFor(m => m.NombreFuncionario, new { @class = "form-control" })
                             </div>
-                            <div class="col s2 left-align">
-                                <button class="btn waves-effect waves-light" type="submit">
+                            <div class="form-group col-md-3 left-align">
+                                <button class="btn btn-info" type="submit">
                                     Buscar
-                                    <i class="material-icons right">search</i>
                                 </button>
                             </div>
                         </div>
@@ -35,13 +32,9 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col s2 left-align">
-        <a class='btn waves-effect waves-light' t href='Funcionario/Create'>Nuevo <i class="material-icons right">add</i></a>
-@*         <button class="btn waves-effect waves-light" type="button" asp-action="Create" asp-controller="Funcionario">
-            Nuevo
-            <i class="material-icons right">add</i>
-        </button> *@
+<div class="row" style="margin-bottom: 3rem;">
+    <div class="form-group col-md-6 left-align">
+        <a class='btn btn-info' t href='Funcionario/Create'>Nuevo</a>
     </div>
 </div>
 

@@ -1,0 +1,45 @@
+﻿@using ContratoQR.Entity
+@using GridMvc
+@model EncuestaViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card border-light mb-3">
+            <div class="card-content">
+                <h2 class="card-title">Resultado Encuesta</h2>
+                <hr style="margin-bottom: 2rem" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <a class='btn btn-primary' asp-controller="Encuesta" asp-action="ExportarExcel">Generar Excel</a>
+                    </div>
+                    <div class="col-md-6">
+                        <a class='btn btn-secondary' asp-controller="Encuesta" asp-action="Index">Refrescar Resultados </a>
+                    </div>
+                </div>
+                
+                <hr />
+                @await Html.Grid(Model.resultadoEncuestas).Columns(c =>
+                                {
+                    c.Add(model => model.DescripcionPregunta).Titled("Pregunta").SetWidth(250);
+                    c.Add(model => model.DescripcionValorRespuesta).Titled("Respuesta").SetWidth(100);
+                }).WithPaging(20).EmptyText("No se encontraron registros").RenderAsync()
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4> Resultados </h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Total Encuestados: @Model.CantidadEncuestasCompletadas </h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Total Respuestas: @Model.CantidadTotalRespuestas </h4>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

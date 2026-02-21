@@ -1,4 +1,4 @@
-using ContratoQR.Entity;
+﻿using ContratoQR.Entity;
 using ContratoQR.WEB.Models;
 using ExcelDataReader;
 using Microsoft.AspNetCore.Mvc;
@@ -7,11 +7,11 @@ using System.Diagnostics;
 
 namespace ContratoQR.WEB.Controllers
 {
-    public class HomeController : Controller
+    public class CodigoQRController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public CodigoQRController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
@@ -64,7 +64,7 @@ namespace ContratoQR.WEB.Controllers
                         funcionarios.Add(
                             new FileExcel
                             {
-                                RutFuncionario = fila[0].ToString()!.Replace("-","").Replace(".",""),
+                                RutFuncionario = fila[0].ToString()!.Replace("-", "").Replace(".", ""),
                                 NombreFuncionario = fila[1].ToString(),
                                 UrlContrato = fila[2].ToString()
                             });

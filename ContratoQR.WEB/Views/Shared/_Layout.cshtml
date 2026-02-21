@@ -10,30 +10,72 @@
     <link rel="stylesheet " href="~/css/gridmvc.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" integrity="sha512-34s5cpvaNG3BknEWSuOncX28vz97bRI59UnVtEEpFX536A7BtZSJHsDyFoCl8S7Dt2TPzcrCEoHBGeM4SUBDBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/webContratoQR.styles.css" asp-append-version="true" />
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+   @*  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.min.js" type="text/javascript"></script> *@
 
 </head>
 <body>
+
+    <!-- Inicio del menu -->
     <header>
-        <nav class="indigo lighten-2">
-            <div class="nav-wrapper">
-                <a <a asp-controller="Home" asp-action="Index" class="brand-logo center">Prestadores de Servicios Depto. Salud - Quilicura</a>
-                <ul id="nav-mobile" class="left hide-on-med-and-down">
-                    <li><a asp-controller="UploadFile" asp-action="Index"><i class="material-icons left">backup</i>Subir Excel</a></li>
-                    <li><a asp-controller="Funcionario" asp-action="Index"><i class="material-icons left">people</i>Funcionario</a></li>
-                </ul>
-                <a <a asp-controller="Home" asp-action="Index" class="brand-logo right"><img src="img/QuilicuraSalud.png" alt="" style="height: 8%; width: 8%; float: right;" /></a>
+        <div class="left">
+            <div class="menu-container">
+                <div class="menu" id="menu">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
-        </nav>
+            <div class="brand">
+                <span class="name">Prestadores de Servicios Depto. Salud - Quilicura</span>
+            </div>
+        </div>
+        <div class="brand">
+            <a asp-controller="Home" asp-action="Index"><img src="img/QuilicuraSalud.png" alt="" style="height: 8%; width: 8%; float: right;" /></a>
+        </div>
     </header>
+
+    @* Menú *@
+    <div class="sidebar" id="sidebar">
+        <nav>
+            <ul>
+                <li>
+                    <a asp-controller="Home" asp-action="Index" class="selected">
+                        <img src="~/icons/home-menu.svg" alt="" />
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="CodigoQR" asp-action="Index">
+                        <img src="~/icons/CodigoQR.svg" alt="" />
+                        <span>Generar QR</span>
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="UploadFile" asp-action="Index">
+                        <img src="~/icons/UploadFile.svg" alt="" />
+                        <span>Subir Archivo</span>
+                    </a>
+                </li>
+@*                 <li>
+                    <a asp-controller="Funcionario" asp-action="Index">
+                        <img src="~/icons/user-menu.svg" alt="" />
+                        <span>Funcionario</span>
+                    </a>
+                </li> *@
+                <li>
+                    <a asp-controller="Encuesta" asp-action="Index">
+                        <img src="~/icons/Encuesta.svg" alt="" />
+                        <span>Encuesta</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3" id="main">
             @RenderBody()
         </main>
     </div>
@@ -45,7 +87,7 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site.js"></script>
     <script src="~/js/gridmvc.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @await RenderSectionAsync("Scripts", required: false)

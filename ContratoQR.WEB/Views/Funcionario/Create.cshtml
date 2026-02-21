@@ -2,41 +2,36 @@
 @using GridMvc
 @model PersonalViewModel
 
-<div class="row">
-    <div class="col s12 m6">
-        <div class="card">
-            <div class="card-content">
-                <h4>Crear Funcionario</h4>
-                <div class="row">
-                    @using (Html.BeginForm("Create", "Funcionario", FormMethod.Post))
-                    {
-                        <div class="row">
-                            <div class="input-field col s3">
-                                @Html.TextBoxFor(m => m.RutFuncionario)
-                                <label for="txtRut">Rut</label>
-                            </div>
-                            <div class="input-field col s3">
-                                @Html.TextBoxFor(m => m.NombreFuncionario)
-                                <label for="txtNombre">Nombre Funcionario</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s6">
-                                @Html.TextBoxFor(m => m.UrlContrato)
-                                <label for="txtUrlContrao">Url Contrato</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col s2 left-align">
-                                <button class="btn waves-effect waves-light" type="submit">
-                                    Grabar
-                                    <i class="material-icons right">save</i>
-                                </button>
-                            </div>
-                        </div>
-                    }
+<div class="col-md-12">
+    <div class="card border-light mb-3">
+        <div class="card-content">
+            <h4 class="card-title">Crear Funcionario</h4>
+            @using (Html.BeginForm("Create", "Funcionario", FormMethod.Post))
+            {
+                <div class="row" style="margin-top: 1.5rem;">
+                    <div class="form-group col-md-3">
+                        <label for="txtRut">Rut</label>
+                        @Html.TextBoxFor(m => m.RutFuncionario, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="txtNombre">Nombre Funcionario</label>
+                        @Html.TextBoxFor(m => m.NombreFuncionario, new { @class = "form-control" })
+                    </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label for="txtUrlContrao">Url Contrato</label>
+                        @Html.TextBoxFor(m => m.UrlContrato, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 3rem;">
+                    <div class="form-group col-md-3 left-align">
+                        <button class="btn btn-info" type="submit">
+                            Grabar
+                        </button>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>
