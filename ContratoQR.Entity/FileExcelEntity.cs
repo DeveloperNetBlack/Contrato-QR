@@ -1,6 +1,6 @@
 ﻿namespace ContratoQR.Entity
 {
-    public class FileExcel
+    public class FileExcelEntity
     {
         public string? RutFuncionario { get; set; }
         public string? NombreFuncionario { get; set; }

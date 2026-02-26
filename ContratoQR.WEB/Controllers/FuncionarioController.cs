@@ -18,11 +18,11 @@ namespace ContratoQR.WEB.Controllers
         public IActionResult Index()
         {
             PersonalViewModel personalViewModel = new();
-            BLL.PersonalQR personalQR = new();
+            BLL.Personal personal = new();
 
             try
             {
-                personalViewModel.ListaPersonal = personalQR.Listar(string.Empty, string.Empty, _configuration);
+                personalViewModel.ListaPersonal = personal.Listar(string.Empty, string.Empty, _configuration);
             }
             catch (Exception ex)
             {
@@ -36,14 +36,14 @@ namespace ContratoQR.WEB.Controllers
         public IActionResult GetFuncionario(string rutFuncionario, string nombreFuncionario)
         {
             PersonalViewModel personalViewModel = new();
-            BLL.PersonalQR personalQR = new();
+            BLL.Personal personal = new();
 
             try
             {
                 rutFuncionario = rutFuncionario ?? string.Empty;
                 nombreFuncionario = nombreFuncionario ?? string.Empty;
 
-                personalViewModel.ListaPersonal = personalQR.Listar(rutFuncionario, nombreFuncionario, _configuration);
+                personalViewModel.ListaPersonal = personal.Listar(rutFuncionario, nombreFuncionario, _configuration);
             }
             catch (Exception ex)
             {
@@ -56,7 +56,7 @@ namespace ContratoQR.WEB.Controllers
         public IActionResult Create()
         {
             PersonalViewModel personalViewModel = new();
-            BLL.PersonalQR personalQR = new();
+            BLL.Personal personal = new();
 
             return View(personalViewModel);
         }
@@ -64,20 +64,20 @@ namespace ContratoQR.WEB.Controllers
         [HttpPost]
         public IActionResult Create(IFormCollection formulario)
         {
-            BLL.PersonalQR personalQR = new();
+            BLL.Personal personal = new();
             PersonalViewModel personalViewModel = new();
-            PersonalQREntity personalQREntity = new();
+            PersonalEntity personalQREntity = new();
 
             try
             {
-                personalQREntity.RutFuncionario = formulario["RutFuncionario"].ToString().ToUpper();
-                personalQREntity.NombreFuncionario = formulario["NombreFuncionario"].ToString().ToUpper();
-                personalQREntity.UrlContrato = formulario["UrlContrato"];
-                personalQREntity.IndEstado = 1;
+                //personalQREntity.RutFuncionario = formulario["RutFuncionario"].ToString().ToUpper();
+                //personalQREntity.NombreFuncionario = formulario["NombreFuncionario"].ToString().ToUpper();
+                //personalQREntity.UrlContrato = formulario["UrlContrato"];
+                //personalQREntity.IndEstado = 1;
 
-                personalQR.Insertar(personalQREntity, _configuration);
+                //personal.Insertar(personalQREntity, _configuration);
 
-                personalViewModel.ListaPersonal = personalQR.Listar(string.Empty, string.Empty, _configuration);
+                personalViewModel.ListaPersonal = personal.Listar(string.Empty, string.Empty, _configuration);
             }
             catch (Exception ex)
             {
@@ -90,21 +90,21 @@ namespace ContratoQR.WEB.Controllers
         public IActionResult Edit(string rutPersonal)
         {
             PersonalViewModel personalViewModel = new();
-            BLL.PersonalQR personalQR = new();
+            BLL.Personal personal = new();
 
             try
             {
-                personalViewModel.ListaPersonal = personalQR.Listar(rutPersonal, string.Empty, _configuration);
+                personalViewModel.ListaPersonal = personal.Listar(rutPersonal, string.Empty, _configuration);
 
                 if (personalViewModel.ListaPersonal.Count == 0)
                 {
                     return RedirectToAction("Index");
                 }
 
-                personalViewModel.RutFuncionario = personalViewModel.ListaPersonal[0].RutFuncionario;
-                personalViewModel.NombreFuncionario = personalViewModel.ListaPersonal[0].NombreFuncionario;
-                personalViewModel.UrlContrato = personalViewModel.ListaPersonal[0].UrlContrato;
-                personalViewModel.IdPersonalQR = personalViewModel.ListaPersonal[0].IdPersonalQR;
+                //personalViewModel.RutFuncionario = personalViewModel.ListaPersonal[0].RutFuncionario;
+                //personalViewModel.NombreFuncionario = personalViewModel.ListaPersonal[0].NombreFuncionario;
+                //personalViewModel.UrlContrato = personalViewModel.ListaPersonal[0].UrlContrato;
+                //personalViewModel.IdPersonalQR = personalViewModel.ListaPersonal[0].IdPersonalQR;
             }
             catch (Exception ex)
             {
@@ -118,21 +118,21 @@ namespace ContratoQR.WEB.Controllers
         [HttpPost]
         public IActionResult Edit(IFormCollection formulario)
         {
-            BLL.PersonalQR personalQR = new();
-            PersonalQREntity personalQREntity = new();
+            BLL.Personal personal = new();
+            PersonalEntity personalQREntity = new();
             PersonalViewModel personalViewModel = new();
 
             try
             {
-                personalQREntity.IdPersonalQR = Convert.ToInt32(formulario["IdPersonalQR"]);
-                personalQREntity.RutFuncionario = formulario["RutFuncionario"].ToString().ToUpper();
-                personalQREntity.NombreFuncionario = formulario["NombreFuncionario"].ToString().ToUpper();
-                personalQREntity.UrlContrato = formulario["UrlContrato"];
-                personalQREntity.IndEstado = 1;
+                //personalQREntity.IdPersonalQR = Convert.ToInt32(formulario["IdPersonalQR"]);
+                //personalQREntity.RutFuncionario = formulario["RutFuncionario"].ToString().ToUpper();
+                //personalQREntity.NombreFuncionario = formulario["NombreFuncionario"].ToString().ToUpper();
+                //personalQREntity.UrlContrato = formulario["UrlContrato"];
+                //personalQREntity.IndEstado = 1;
 
-                personalViewModel.ListaPersonal = personalQR.Listar(string.Empty, string.Empty, _configuration);
+                personalViewModel.ListaPersonal = personal.Listar(string.Empty, string.Empty, _configuration);
 
-                personalQR.Actualizar(personalQREntity, _configuration);
+                //personal.Actualizar(personalQREntity, _configuration);
             }
             catch (Exception ex)
             {

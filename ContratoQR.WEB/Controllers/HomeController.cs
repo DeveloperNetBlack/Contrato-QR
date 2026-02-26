@@ -31,7 +31,7 @@ namespace ContratoQR.WEB.Controllers
         [HttpPost]
         public Task<IActionResult> Index(string texto)
         {
-            List<FileExcel> funcionarios = new List<FileExcel>();
+            List<FileExcelEntity> funcionarios = new List<FileExcelEntity>();
             string? filePath = ""; // _configuration.GetValue<string>("NombreExcel").ToString();
             FileExcelViewModel fileExcelModel = new FileExcelViewModel();
 
@@ -62,7 +62,7 @@ namespace ContratoQR.WEB.Controllers
                     {
 
                         funcionarios.Add(
-                            new FileExcel
+                            new FileExcelEntity
                             {
                                 RutFuncionario = fila[0].ToString()!.Replace("-","").Replace(".",""),
                                 NombreFuncionario = fila[1].ToString(),

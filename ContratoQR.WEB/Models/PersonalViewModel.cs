@@ -2,9 +2,9 @@
 
 namespace ContratoQR.WEB.Models
 {
-    public class PersonalViewModel : PersonalQREntity
+    public class PersonalViewModel : PersonalEntity
     {
-        public List<PersonalQREntity> ListaPersonal { get; set; } = new();
-        public PersonalQREntity personalQR { get; set; } = new();
+        public List<PersonalEntity> ListaPersonal { get; set; } = new();
+        public PersonalEntity personalQR { get; set; } = new();
     }
 }
