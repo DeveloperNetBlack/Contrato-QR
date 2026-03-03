@@ -5,23 +5,32 @@ namespace ContratoQR.BLL
 {
     public class Personal
     {
-        public void Insertar(PersonalEntity personalQR, IConfiguration configuration)
+        public void Insertar(PersonalEntity personal, IConfiguration configuration)
         {
-            DAL.Personal dalPersonalQR = new();
+            DAL.Personal dalPersonal = new();
 
-            dalPersonalQR.Insertar(personalQR, configuration);
+            dalPersonal.Insertar(personal, configuration);
         }
 
-        public void Actualizar(PersonalEntity personalQR, IConfiguration configuration)
+        public void Actualizar(PersonalEntity personal, IConfiguration configuration)
         {
-            DAL.Personal dalPersonalQR = new();
-            dalPersonalQR.Actualizar(personalQR, configuration);
+            DAL.Personal dalPersonal = new();
+
+            dalPersonal.Actualizar(personal, configuration);
         }
 
         public List<PersonalEntity> Listar(string rutPersona, string nombrePersona, IConfiguration configuration)
         {
-            DAL.Personal dalPersonalQR = new();
-            return dalPersonalQR.Listar(rutPersona, nombrePersona, configuration);
+            DAL.Personal dalPersonal = new();
+
+            return dalPersonal.Listar(rutPersona, nombrePersona, configuration);
+        }
+
+        public PersonalEntity Listar(string rutPersonal, IConfiguration configuration)
+        {
+            DAL.Personal dalPersonal = new();
+            
+            return dalPersonal.Listar(rutPersonal, configuration);
         }
     }
 }

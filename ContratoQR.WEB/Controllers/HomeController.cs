@@ -22,7 +22,7 @@ namespace ContratoQR.WEB.Controllers
             ViewData["qr"] = "";
             ViewBag.QR = "";
             fileExcelModel.CodigoQR = "";
-            fileExcelModel.NombreFuncionario = "";
+            fileExcelModel.NombrePersonal = "";
             fileExcelModel.UrlContrato = "";
 
             return View(fileExcelModel);
@@ -64,8 +64,8 @@ namespace ContratoQR.WEB.Controllers
                         funcionarios.Add(
                             new FileExcelEntity
                             {
-                                RutFuncionario = fila[0].ToString()!.Replace("-","").Replace(".",""),
-                                NombreFuncionario = fila[1].ToString(),
+                                RutPersonal = fila[0].ToString()!.Replace("-","").Replace(".",""),
+                                NombrePersonal = fila[1].ToString(),
                                 UrlContrato = fila[2].ToString()
                             });
                     }
@@ -73,11 +73,11 @@ namespace ContratoQR.WEB.Controllers
             }
 
             fileExcelModel.Funcionarios = funcionarios;
-            fileExcelModel.Funcionario = fileExcelModel.Funcionarios.Where(f => f.RutFuncionario == texto.Replace("-", "").Replace(".", "")).FirstOrDefault();
+            fileExcelModel.Funcionario = fileExcelModel.Funcionarios.Where(f => f.RutPersonal == texto.Replace("-", "").Replace(".", "")).FirstOrDefault();
 
             Helpers.HelperQR helperQR = new Helpers.HelperQR();
             fileExcelModel.CodigoQR = helperQR.GenerateQRCode(fileExcelModel.Funcionario != null ? fileExcelModel.Funcionario.UrlContrato : "No encontrado");
-            fileExcelModel.NombreFuncionario = fileExcelModel.Funcionario == null ? "No encontrado" : fileExcelModel.Funcionario.NombreFuncionario;
+            fileExcelModel.NombrePersonal = fileExcelModel.Funcionario == null ? "No encontrado" : fileExcelModel.Funcionario.NombrePersonal;
             fileExcelModel.UrlContrato = fileExcelModel.Funcionario == null ? "No encontrado" : fileExcelModel.Funcionario.UrlContrato;
 
             return Task.FromResult<IActionResult>(View(fileExcelModel));

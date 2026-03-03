@@ -2,8 +2,9 @@
 {
     public class FileExcelEntity
     {
-        public string? RutFuncionario { get; set; }
-        public string? NombreFuncionario { get; set; }
+        public string? RutPersonal { get; set; }
+        public string? NombrePersonal { get; set; }
+        public string? ApellidoPersonal { get; set; }
         public string? UrlContrato { get; set; }
     }
 }

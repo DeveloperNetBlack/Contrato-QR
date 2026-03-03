@@ -71,8 +71,8 @@ namespace ContratoQR.DAL
 
             parameters.NameProcedure = "SP_SEL_PERSONAL";
 
-            parameters.addParameters("@PI_RUT_FUNCIONARIO", TypeData.DataType.Varchar, 12, ParameterDirection.Input, rutPersona);
-            parameters.addParameters("@PI_NOMBRE_FUNCIONARIO", TypeData.DataType.Varchar, 150, ParameterDirection.Input, nombrePersona);
+            parameters.addParameters("@PI_RUT", TypeData.DataType.Varchar, 12, ParameterDirection.Input, rutPersona);
+            parameters.addParameters("@PI_NOMBRE", TypeData.DataType.Varchar, 150, ParameterDirection.Input, nombrePersona);
 
             conn.ExecuteSQL(parameters);
 
@@ -83,6 +83,30 @@ namespace ContratoQR.DAL
             else
             {
                 return new List<PersonalEntity>();
+            }
+        }
+
+        public PersonalEntity Listar(string rutPersonal, IConfiguration configuration)
+        {
+            Connection<PersonalEntity> conn = new(configuration);
+            Parameters parameters = new Parameters();
+
+            conn.Devolution = TypeRefund.Register.EntitySingle;
+
+            parameters.NameProcedure = "SP_SEL_PERSONAL";
+
+            parameters.addParameters("@PI_RUT", TypeData.DataType.Varchar, 12, ParameterDirection.Input, rutPersonal);
+            parameters.addParameters("@PI_NOMBRE", TypeData.DataType.Varchar, 150, ParameterDirection.Input, string.Empty);
+
+            conn.ExecuteSQL(parameters);
+
+            if (conn.ReturnEntity != null)
+            {
+                return conn.ReturnEntitySingle!;
+            }
+            else
+            {
+                return new PersonalEntity();
             }
         }
     }
