@@ -35,9 +35,9 @@ namespace ContratoQR.WEB.Controllers
             string? filePath = ""; // _configuration.GetValue<string>("NombreExcel").ToString();
             FileExcelViewModel fileExcelModel = new FileExcelViewModel();
 
-            if (Directory.Exists(Path.Combine("wwwroot", "Uploads")) && Directory.GetFiles(Path.Combine("wwwroot", "Uploads")).Length > 0)
+            if (Directory.Exists(Path.Combine("wwwroot", "CodigoQR")) && Directory.GetFiles(Path.Combine("wwwroot", "CodigoQR")).Length > 0)
             {
-                filePath = Directory.GetFiles(Path.Combine("wwwroot", "Uploads"))[0];
+                filePath = Directory.GetFiles(Path.Combine("wwwroot", "CodigoQR"))[0];
             }
             else
             {

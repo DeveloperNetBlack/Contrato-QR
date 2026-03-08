@@ -38,7 +38,7 @@
 
         public string? NombreCompleto => $"{NombrePersonal} {ApellidoPersonal}";
 
-        public string? EMail { get; set }
+        public string? CorreoElectronico { get; set; }
 
     }
 }

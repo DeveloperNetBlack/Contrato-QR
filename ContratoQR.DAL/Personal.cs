@@ -23,6 +23,7 @@ namespace ContratoQR.DAL
             parameters.addParameters("@PI_ID_TIPO_CONTRATO", TypeData.DataType.Int, 0, ParameterDirection.Input, personal.IdTipoContrato);
             parameters.addParameters("@PI_NOMBRE_CARGO", TypeData.DataType.Varchar, 150, ParameterDirection.Input, personal.NombreCargo!);
             parameters.addParameters("@PI_FEC_INICIO_CONTRATO", TypeData.DataType.Date, 0, ParameterDirection.Input, personal.FecInicioContrato);
+            parameters.addParameters("@PI_CORREO_ELECTRONICO", TypeData.DataType.Varchar, 256, ParameterDirection.Input, personal.CorreoElectronico);
             parameters.addParameters("@PI_NRO_FICHA", TypeData.DataType.Int, 0, ParameterDirection.Input, personal.NroFicha);
             parameters.addParameters("@PI_NRO_HORA", TypeData.DataType.Int, 0, ParameterDirection.Input, personal.NroHora);
             parameters.addParameters("@PI_CATEGORIA", TypeData.DataType.Varchar, 1, ParameterDirection.Input, personal.Categoria!);
@@ -41,7 +42,7 @@ namespace ContratoQR.DAL
 
             conn.Devolution = TypeRefund.Register.None;
 
-            parameters.NameProcedure = "SP_UPD_CONTRATOQR";
+            parameters.NameProcedure = "SP_UPD_PERSONAL";
 
             parameters.addParameters("@PI_ID_PERSONAL", TypeData.DataType.Varchar, 12, ParameterDirection.Input, personal.IdPersonal);
             parameters.addParameters("@PI_RUT_PERSONAL", TypeData.DataType.Varchar, 12, ParameterDirection.Input, personal.RutPersonal!);
@@ -51,6 +52,7 @@ namespace ContratoQR.DAL
             parameters.addParameters("@PI_ID_TIPO_CONTRATO", TypeData.DataType.Int, 0, ParameterDirection.Input, personal.IdTipoContrato);
             parameters.addParameters("@PI_NOMBRE_CARGO", TypeData.DataType.Varchar, 150, ParameterDirection.Input, personal.NombreCargo!);
             parameters.addParameters("@PI_FEC_INICIO_CONTRATO", TypeData.DataType.Date, 0, ParameterDirection.Input, personal.FecInicioContrato);
+            parameters.addParameters("@PI_CORREO_ELECTRONICO", TypeData.DataType.Varchar, 256, ParameterDirection.Input, personal.CorreoElectronico!);
             parameters.addParameters("@PI_NRO_FICHA", TypeData.DataType.Int, 0, ParameterDirection.Input, personal.NroFicha);
             parameters.addParameters("@PI_NRO_HORA", TypeData.DataType.Int, 0, ParameterDirection.Input, personal.NroHora);
             parameters.addParameters("@PI_CATEGORIA", TypeData.DataType.Varchar, 1, ParameterDirection.Input, personal.Categoria!);

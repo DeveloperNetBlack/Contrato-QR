@@ -9,7 +9,7 @@
     <div class="card border-light mb-3">
         <div class="card-content">
             <h4 class="card-title">Generar Certificado</h4>
-            @using (Html.BeginForm("Generar", "CertificadoAntiguedad", FormMethod.Post))
+            @using (Html.BeginForm("Generar", "CertificadoAntiguedad", FormMethod.Post, new { id = "formGenerar" }))
             {
                 <div class="row" style="margin-top: 1.5rem;">
                     <div class="form-group col-md-3">
@@ -21,7 +21,9 @@
                         @Html.TextBoxFor(m => m.personalEntity.NombreCompleto, new { @class = "form-control", @readonly = "readonly" })
                     </div>
                 </div>
-                <br /><br />
+                <br />
+
+                <br />
                 <div class="row">
                     <div class="form-group col-md-3">
                         <label for="txtFecInicioServicio">Fec. Inicio Servicio</label>
@@ -53,7 +55,7 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="txtCorreoElectronico">E-Mail</label>
-                        @Html.TextBoxFor(m => m.personalEntity.EMail, new { @class = "form-control" })
+                        @Html.TextBoxFor(m => m.personalEntity.CorreoElectronico, new { @class = "form-control" })
                     </div>
                 </div>
                 <div class="row" style="margin-top: 3rem;">
@@ -66,4 +68,22 @@
             }
         </div>
     </div>
+    <!-- Modal de carga -->
+    <div class="modal fade" id="modalCargando" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center p-4">
+                <div class="spinner-border text-primary mx-auto mb-3"></div>
+                <p class="mb-0">Generando certificado, por favor espere...</p>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        <script>
+            document.getElementById('formGenerar').addEventListener('submit', function () {
+                var modal = new bootstrap.Modal(document.getElementById('modalCargando'));
+                modal.show();
+            });
+        </script>
+    }
 </div>

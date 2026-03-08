@@ -36,7 +36,7 @@ namespace ContratoQR.WEB.Controllers
             FileExcelViewModel fileExcelModel = new FileExcelViewModel();
             ViewBag.Inicio = "NO";
 
-            pathDir = archivo == 1 ? "Uploads" : @"Uploads\Certificado";
+            pathDir = archivo == 1 ? "CodigoQR" : @"Certificado\ArchivoExcel";
 
             try
             {
@@ -78,12 +78,12 @@ namespace ContratoQR.WEB.Controllers
         private void ProcessFile()
         {
             List<PersonalEntity> personal = new List<PersonalEntity>();
-            string? filePath = ""; // _configuration.GetValue<string>("NombreExcel").ToString();
+            string? filePath = "";
             FileExcelViewModel fileExcelModel = new FileExcelViewModel();
 
-            if (Directory.GetFiles(Path.Combine("wwwroot", @"Uploads\Certificado")).Length > 0)
+            if (Directory.GetFiles(Path.Combine("wwwroot", @"Certificado\ArchivoExcel")).Length > 0)
             {
-                filePath = Directory.GetFiles(Path.Combine("wwwroot", @"Uploads\Certificado"))[0];
+                filePath = Directory.GetFiles(Path.Combine("wwwroot", @"Certificado\ArchivoExcel"))[0];
             }
             else
             {
@@ -119,6 +119,7 @@ namespace ContratoQR.WEB.Controllers
                                 IdEstablecimiento = Convert.ToInt32(fila[6]),
                                 IdTipoContrato = fila[8].ToString() == "INDEFINIDO" ? 1 : fila[8].ToString() == "PLAZO FIJO" ? 2 : 999,
                                 NombreCargo = fila[9].ToString(),
+                                CorreoElectronico = string.Empty,
                                 FecInicioContrato = Convert.ToDateTime(fila[10]),
                                 NroHora = Convert.ToInt32(fila[13]),
                                 Categoria = fila[14].ToString(),
@@ -127,7 +128,17 @@ namespace ContratoQR.WEB.Controllers
                                 IdUsuario = "ADMIN"
                             });
 
-                            personalBLL.Insertar(personal.Last(), _configuration);
+                            var existePersonal = personalBLL.Listar(personal.Last().RutPersonal!, "", _configuration);
+
+                            if (existePersonal.Count() > 0)
+                            {
+                                personal.Last().IdPersonal = existePersonal.First().IdPersonal;
+                                personalBLL.Actualizar(personal.Last(), _configuration);
+                            }
+                            else
+                            {
+                                personalBLL.Insertar(personal.Last(), _configuration);
+                            }
                         }
 
                         contador++;

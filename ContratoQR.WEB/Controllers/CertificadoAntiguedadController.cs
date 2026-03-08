@@ -1,6 +1,9 @@
 ﻿using ContratoQR.Entity;
+using ContratoQR.WEB.Helpers;
 using ContratoQR.WEB.Models;
 using DocumentFormat.OpenXml.Packaging;
+using iText.Forms;
+using iText.Kernel.Pdf;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
 
@@ -34,6 +37,11 @@ namespace ContratoQR.WEB.Controllers
                 nombrePersonal = nombrePersonal ?? string.Empty;
 
                 personalViewModel.ListaPersonal = personal.Listar(rutPersonal, nombrePersonal, _configuration);
+
+                foreach (var item in personalViewModel.ListaPersonal)
+                {
+                    item.RutPersonal = GeneralRoutine.FormatearRut(item.RutPersonal!);
+                }
             }
             catch (Exception ex)
             {
@@ -49,7 +57,10 @@ namespace ContratoQR.WEB.Controllers
             BLL.Personal personal = new();
             try
             {
-                personalViewModel.personalEntity = personal.Listar(rutPersonal, _configuration);
+                personalViewModel.personalEntity = personal.Listar(rutPersonal.Replace(".", "").Replace("-", ""), _configuration);
+
+                personalViewModel.personalEntity.RutPersonal = GeneralRoutine.FormatearRut(personalViewModel.personalEntity.RutPersonal!);
+                personalViewModel.personalEntity.CorreoElectronico = string.IsNullOrEmpty(personalViewModel.personalEntity.CorreoElectronico) ? string.Empty : personalViewModel.personalEntity.CorreoElectronico;
             }
             catch (Exception ex)
             {
@@ -63,13 +74,14 @@ namespace ContratoQR.WEB.Controllers
             BLL.Personal personal = new();
             string pathDir = string.Empty;
             string pathCertificadoGenerado = string.Empty;
-            PersonalEntity personalEntity = personal.Listar(personalViewModel.personalEntity.RutPersonal!, _configuration);
+            PersonalEntity personalEntity = personal.Listar(personalViewModel.personalEntity.RutPersonal!.Replace(".", "").Replace("-", ""), _configuration);
+            var emailService = new EmailService();
 
-            pathDir = Path.Combine("wwwroot", @"Uploads\Certificado"); // Asegúrate que esta carpeta existe
+            pathDir = Path.Combine("wwwroot", @"Certificado\Personal"); // Asegúrate que esta carpeta existe
 
             if (Directory.Exists(pathDir))
             {
-                pathCertificadoGenerado = Path.Combine("wwwroot", @"Uploads\Certificado\" + personalEntity.RutPersonal);
+                pathCertificadoGenerado = Path.Combine("wwwroot", @"Certificado\Personal\" + personalEntity.RutPersonal);
 
                 if (Directory.Exists(pathCertificadoGenerado))
                 {
@@ -80,55 +92,25 @@ namespace ContratoQR.WEB.Controllers
                 {
                     Directory.CreateDirectory(pathCertificadoGenerado);
                 }
-                
-                string nombreArchivo = Path.Combine(pathCertificadoGenerado, $"CertificadoAntiguedad_{personalEntity.RutPersonal}.docx");
 
-                System.IO.File.Copy(Path.Combine("wwwroot", @"DocCertificado\CertificadoAntiguedad.docx"), nombreArchivo, true);
+                string outputArchivoPDF = Path.Combine(pathCertificadoGenerado, $"CertificadoAntiguedad_{personalEntity.RutPersonal}.pdf");
+                string inputArchivoPDF = Path.Combine("wwwroot", @"DocCertificado\CertificadoAntiguedad.pdf");
+                string asunto = "Certificado de Antiguedad";
+                string cuerpo = "<p>Adjunto encontrarás el certificado solicitado.</p>";
 
-                using (WordprocessingDocument wordDoc = WordprocessingDocument.Open(nombreArchivo, true))
+                FillFormFields(inputArchivoPDF, outputArchivoPDF, personalEntity);
+
+                if(personalViewModel.personalEntity.CorreoElectronico == null)
                 {
-                    string? strDocTexto = null;
-
-                    using (StreamReader srArchivo = new StreamReader(wordDoc.MainDocumentPart!.GetStream()))
-                    {
-                        strDocTexto = srArchivo.ReadToEnd();
-                    }
-
-                    Regex regexTexto = new Regex("NOMBRE_PERSONAL");
-                    strDocTexto = regexTexto.Replace(strDocTexto, personalEntity.NombreCompleto!);
-
-                    regexTexto = new Regex("RUT_PERSONAL");
-                    strDocTexto = regexTexto.Replace(strDocTexto, personalEntity.RutPersonal!);
-
-                    regexTexto = new Regex("ESTABLECIMIENTO");
-                    strDocTexto = regexTexto.Replace(strDocTexto, personalEntity.NombreEstablecimiento!);
-
-                    regexTexto = new Regex("CARGO");
-                    strDocTexto = regexTexto.Replace(strDocTexto, personalEntity.NombreCargo!);
-
-                    regexTexto = new Regex("NOMBRE_CATEGORIA");
-                    strDocTexto = regexTexto.Replace(strDocTexto, personalEntity.Categoria!);
-
-                    regexTexto = new Regex("NOMBRE_NIVEL");
-                    strDocTexto = regexTexto.Replace(strDocTexto, personalEntity.Nivel.ToString()!);
-
-                    regexTexto = new Regex("FEC_INICIO_CONTRATO");
-                    strDocTexto = regexTexto.Replace(strDocTexto, personalEntity.FecInicioContrato.ToString("dd/MM/yyyy")!);
-
-                    regexTexto = new Regex("TIPO_CONTRATO");
-                    strDocTexto = regexTexto.Replace(strDocTexto, personalEntity.NombreTipoContrato!);
-
-                    regexTexto = new Regex("NRO_HORA");
-                    strDocTexto = regexTexto.Replace(strDocTexto, personalEntity.NroHora.ToString());
-
-                    regexTexto = new Regex("FEC_GENERAR_CERTIFICADO");
-                    strDocTexto = regexTexto.Replace(strDocTexto, DateTime.Now.ToString("dd 'de' MMMM 'de' yyyy")!);
-
-                    using (StreamWriter srGrabarArchivo = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create)))
-                    {
-                        srGrabarArchivo.Write(strDocTexto);
-                    }
+                    return PartialView("Mensajeria", new MensajeriaViewModel { IsError = true, Mensaje = "No se ha registrado un correo electrónico para este personal", Url = "/CertificadoAntiguedad" });
                 }
+
+                emailService.EnviarCorreo(personalViewModel.personalEntity.CorreoElectronico!, asunto, cuerpo, outputArchivoPDF);
+
+                personalEntity.CorreoElectronico = personalViewModel.personalEntity.CorreoElectronico;
+                personalEntity.IdUsuario = "ADMIN";
+
+                personal.Actualizar(personalEntity, _configuration);
             }
             else
             {
@@ -138,5 +120,33 @@ namespace ContratoQR.WEB.Controllers
 
             return PartialView("Mensajeria", new MensajeriaViewModel { IsError = false, Mensaje = "Se ha generado el certificado!!!!", Url = "/CertificadoAntiguedad" });
         }
+
+        public void FillFormFields(string inputPdf, string outputPdf, PersonalEntity personalEntity)
+        {
+            using var reader = new PdfReader(inputPdf);
+            using var writer = new PdfWriter(outputPdf);
+            using var pdfDoc = new PdfDocument(reader, writer);
+
+            // Obtener el formulario
+            PdfAcroForm form = PdfAcroForm.GetAcroForm(pdfDoc, true);
+
+            // Modificar campos
+            form.GetField("txtNombrePersonal").SetValue(personalEntity.NombreCompleto);
+            form.GetField("txtRutPersonal").SetValue(GeneralRoutine.FormatearRut(personalEntity.RutPersonal!));
+            form.GetField("txtEstablecimiento").SetValue(personalEntity.NombreEstablecimiento);
+            form.GetField("txtCargo").SetValue(personalEntity.NombreCargo);
+            form.GetField("txtNombreCategoria").SetValue(personalEntity.Categoria);
+            form.GetField("txtNombreNivel").SetValue(personalEntity.Nivel.ToString());
+            form.GetField("txtFecInicioContrato").SetValue(personalEntity.FecInicioContrato.ToString("dd/MM/yyyy")!);
+            form.GetField("txtTipoContrato").SetValue(personalEntity.NombreTipoContrato);
+            form.GetField("txtNroHora").SetValue(personalEntity.NroHora.ToString());
+            form.GetField("txtFecGenerarCertificado").SetValue(DateTime.Now.ToString("dd 'de' MMMM 'de' yyyy")!);
+
+            // Opcional: aplanar (flatten) para evitar edición posterior
+            form.FlattenFields();
+
+            pdfDoc.Close();
+        }
+
     }
 }
