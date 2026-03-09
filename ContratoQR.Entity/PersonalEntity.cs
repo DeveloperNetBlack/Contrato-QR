@@ -20,7 +20,7 @@
 
         public string? NombreTipoContrato { get; set; }
 
-        public DateTime FecInicioContrato { get; set; }
+        public string? FecInicioContrato { get; set; }
         
         public int NroFicha { get; set; }
         

@@ -120,7 +120,7 @@ namespace ContratoQR.WEB.Controllers
                                 IdTipoContrato = fila[8].ToString() == "INDEFINIDO" ? 1 : fila[8].ToString() == "PLAZO FIJO" ? 2 : 999,
                                 NombreCargo = fila[9].ToString(),
                                 CorreoElectronico = string.Empty,
-                                FecInicioContrato = Convert.ToDateTime(fila[10]),
+                                FecInicioContrato = fila[10].ToString(),
                                 NroHora = Convert.ToInt32(fila[13]),
                                 Categoria = fila[14].ToString(),
                                 Nivel = Convert.ToInt32(fila[15]),

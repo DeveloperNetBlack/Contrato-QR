@@ -137,7 +137,7 @@ namespace ContratoQR.WEB.Controllers
             form.GetField("txtCargo").SetValue(personalEntity.NombreCargo);
             form.GetField("txtNombreCategoria").SetValue(personalEntity.Categoria);
             form.GetField("txtNombreNivel").SetValue(personalEntity.Nivel.ToString());
-            form.GetField("txtFecInicioContrato").SetValue(personalEntity.FecInicioContrato.ToString("dd/MM/yyyy")!);
+            form.GetField("txtFecInicioContrato").SetValue(personalEntity.FecInicioContrato!);
             form.GetField("txtTipoContrato").SetValue(personalEntity.NombreTipoContrato);
             form.GetField("txtNroHora").SetValue(personalEntity.NroHora.ToString());
             form.GetField("txtFecGenerarCertificado").SetValue(DateTime.Now.ToString("dd 'de' MMMM 'de' yyyy")!);

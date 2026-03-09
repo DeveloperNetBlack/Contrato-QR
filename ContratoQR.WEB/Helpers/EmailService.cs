@@ -46,7 +46,7 @@ namespace ContratoQR.WEB.Helpers
         }
 
         // Versión asíncrona (recomendada para apps web o de escritorio)
-        public async Task EnviarCorreoAsync(string destinatario, string asunto, string cuerpo, string rutaArchivo = null)
+        public async Task EnviarCorreoAsync(string destinatario, string asunto, string cuerpo, string rutaArchivo = null!)
         {
             var mensaje = new MimeMessage();
             mensaje.From.Add(new MailboxAddress("Depto. Salud Quilicura", _senderEmail));
