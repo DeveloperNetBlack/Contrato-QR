@@ -28,6 +28,8 @@ namespace ContratoQR.DAL
             parameters.addParameters("@PI_NRO_HORA", TypeData.DataType.Int, 0, ParameterDirection.Input, personal.NroHora);
             parameters.addParameters("@PI_CATEGORIA", TypeData.DataType.Varchar, 1, ParameterDirection.Input, personal.Categoria!);
             parameters.addParameters("@PI_NIVEL", TypeData.DataType.Int, 0, ParameterDirection.Input, personal.Nivel);
+            parameters.addParameters("@PI_TIPO_FUNCIONARIO", TypeData.DataType.Varchar, 80, ParameterDirection.Input, personal.TipoFuncionario!);
+            parameters.addParameters("@PI_DIA_TRABAJADO", TypeData.DataType.Int, 0, ParameterDirection.Input, personal.DiaTrabajado);
             parameters.addParameters("@PI_URL_CONTRATO", TypeData.DataType.Varchar, 1000, ParameterDirection.Input, personal.UrlContrato!);
             parameters.addParameters("@PI_IND_ESTADO", TypeData.DataType.Int, 0, ParameterDirection.Input, personal.IndEstado);
             parameters.addParameters("@PI_ID_USUARIO", TypeData.DataType.Varchar, 0, ParameterDirection.Input, personal.IdUsuario!);
@@ -57,6 +59,8 @@ namespace ContratoQR.DAL
             parameters.addParameters("@PI_NRO_HORA", TypeData.DataType.Int, 0, ParameterDirection.Input, personal.NroHora);
             parameters.addParameters("@PI_CATEGORIA", TypeData.DataType.Varchar, 1, ParameterDirection.Input, personal.Categoria!);
             parameters.addParameters("@PI_NIVEL", TypeData.DataType.Int, 0, ParameterDirection.Input, personal.Nivel);
+            parameters.addParameters("@PI_TIPO_FUNCIONARIO", TypeData.DataType.Varchar, 80, ParameterDirection.Input, personal.TipoFuncionario!);
+            parameters.addParameters("@PI_DIA_TRABAJADO", TypeData.DataType.Int, 0, ParameterDirection.Input, personal.DiaTrabajado);
             parameters.addParameters("@PI_URL_CONTRATO", TypeData.DataType.Varchar, 1000, ParameterDirection.Input, personal.UrlContrato!);
             parameters.addParameters("@PI_IND_ESTADO", TypeData.DataType.Int, 0, ParameterDirection.Input, personal.IndEstado);
             parameters.addParameters("@PI_ID_USUARIO", TypeData.DataType.Varchar, 0, ParameterDirection.Input, personal.IdUsuario!);

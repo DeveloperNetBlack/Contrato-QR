@@ -7,5 +7,6 @@ namespace ContratoQR.WEB.Models
         public List<PersonalEntity> ListaPersonal { get; set; } = new();
         public PersonalEntity personalQR { get; set; } = new();
         public PersonalEntity personalEntity { get; set; } = new();
+        public PersonalHonorarioEntity personalHonorarioEntity { get; set; } = new();
     }
 }
